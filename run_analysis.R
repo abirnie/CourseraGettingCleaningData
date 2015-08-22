@@ -33,19 +33,20 @@
         data_all <- rbind(dataTest, dataTrain)
         
         
-### 2. ASSIGN VAR NAMES AND EXTRACT MEANS AND STDEVS
+### 2. ASSIGN DESCRIPTIVE VARIABLE NAMES
 
         # assign variable names to columns
         xvar_names <- read.csv("features.txt", header = FALSE, sep = "")        # Read x var file
         var_list <- c("subject", as.character(xvar_names[,2]), "activity")      # create full var list
         names(data_all) <- make.names(var_list, unique = TRUE)                  # change df names to var list
         
+### 3. EXTRACT MEANS AND STDEVS
         # extract subject, activity, means and stdevs
         library(dplyr)
         data <- select(data_all, matches("subject"), matches("activity"), contains("mean"), contains("std"))
 
-        
-### 3. DESCRIPTIVE ACTIVITY NAMES
+
+### 4. DESCRIPTIVE ACTIVITY NAMES
         
         # replace numeric values with activity names
         data$activity[data$activity == 1] <- "WALKING"
@@ -54,11 +55,6 @@
         data$activity[data$activity == 4] <- "SITTING"
         data$activity[data$activity == 5] <- "STANDING"
         data$activity[data$activity == 6] <- "LAYING"
-        
-        
-### 4. DESCRIPTIVE VARIABLE NAMES
-        
-        ## See step 2 above ##
         
         
 ### 5. TIDY DATA SET 2 - MEANS
